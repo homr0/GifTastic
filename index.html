@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Memetic Movie GIFs</title>
+    <title>Memetic Media GIFs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <link rel="stylesheet" href="assets/css/normalize.css">
@@ -12,14 +12,19 @@
 <body>
     <header>
         <div class="container">
-            <h1>Memetic Movie GIFs</h1>
+            <h1>Memetic Media GIFs</h1>
         </div>
     </header>
 
     <main>
         <div class="container">
             <div class="row">
-                <div class="col" id="buttons"></div>
+                <div class="col">
+                    <p>Get some fun GIFs from your favorite movies, TV shows, and games.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" id="topics"></div>
             </div>
             
             <div class="row">
@@ -27,12 +32,12 @@
 
                 <div class="col-3">
                     <div class="form-group">
-                        <label for="addMovie"><strong>Add a movie</strong></label>
+                        <label for="newMedia"><strong>Add a movie</strong></label>
                         
-                        <input type="text" class="form-control" name="movieAdd" id="addMovie">
+                        <input type="text" class="form-control" id="newMedia">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" id="addMedia">Submit</button>
                 </div>
             </div>
         </div>
