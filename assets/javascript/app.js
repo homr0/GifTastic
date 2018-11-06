@@ -55,10 +55,8 @@ $(document).ready(function() {
             url: "https://www.omdbapi.com/?t=" + $("#newMedia").val() + "&apikey=trilogy",
             method: "GET"
         }).then(function(query) {
-            // If it exists, then add its title and IMDB id to the array
-            console.log(query);
-                console.log(query.Title, query.imdbID);
-            if(query.Response == "True") {
+            // If it exists and isn't already in the array, then add its title and IMDB id to the array
+            if(query.Response == "True" && ($("[data-imdb=" + query.imdbID + "]").length < 1)) {
                 topics.push({
                     name: query.Title,
                     imdb: query.imdbID
@@ -67,7 +65,7 @@ $(document).ready(function() {
                 // Re-render the buttons
                 renderButtons();
             } else {
-                alert("Could not find " + $("#newMedia").val());
+                alert("Could not find " + $("#newMedia").val() + ", or it is already a topic");
             }
         });
     });
