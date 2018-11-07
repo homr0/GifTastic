@@ -63,6 +63,34 @@ $(document).ready(function() {
             // Sets this topic to the selected topic
             $(".selected").removeClass("selected");
             $(this).addClass("selected");
+
+            // Clears the media info
+            $("#mediaInfo").empty();
+
+            // Loads the media info
+            $.ajax({
+                url: "https://www.omdbapi.com/?i=" + $(".selected").attr("data-imdb") + "&plot=full&apikey=trilogy",
+                method: "GET"
+            }).then(function(query) {
+                // Loads the title, release date, and plot
+                var title = $("<h2>").text(query.Title);
+
+                var released = $("<p>").text("Released: " + query.Released);
+
+                var plot = $("<p>").text(query.Plot);
+
+                // Loads the poster if it exists
+                if(query.Poster != "N/A") {
+                    var poster = $("<img>").attr({
+                        "src": query.Poster,
+                        "alt": query.Title
+                    }).addClass("img-fluid float-left mr-3");
+
+                    $("#mediaInfo").append(poster);
+                }
+
+                $("#mediaInfo").append(title, released, plot);
+            });
         } else {
             // Adds to the offset
             offset++;
