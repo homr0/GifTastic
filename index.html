@@ -10,30 +10,26 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Memetic Media GIFs</h1>
+    <header class="w-100">
+        <div class="container p-2">
+            <h1 class="text-center">Memetic Media GIFs</h1>
+
+            <div id="topics" class="text-center"></div>
         </div>
     </header>
 
-    <main>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <p>Get some fun GIFs from your favorite movies, TV shows, and games.<strong id="ymmv" data-show="false">*</strong></p>
-
-                    <p id="disclaimer"><strong>*</strong>While topic relevancy may vary for gifs, just keep clicking on the topic button until you find what you're looking for.</p>
-                </div>
-            </div>
-
+    <main class="my-3">
+        <div class="container p-3">
             <div class="row">
                 <div class="col-12 col-md-9">
-                    <div id="topics" class="text-center"></div>
-
                     <div id="mediaInfo" class="my-3"></div>
                 </div>
 
-                <div class="col-12 col-md-3 text-center">
+                <div class="col-12 col-md-3 p-3 text-center">
+                    <p class="text-left">Get some fun GIFs from your favorite movies, TV shows, and games.<strong id="ymmv" data-show="false">*</strong></p>
+
+                    <p class="text-left" id="disclaimer"><strong>*</strong>While topic relevancy may vary for gifs, just keep clicking on the topic button until you find what you're looking for.</p>
+
                     <div class="form-group">
                         <label for="newMedia"><strong>Have another movie, TV series, or video game you want to add?</strong></label>
                         
@@ -42,7 +38,7 @@
                         <input type="text" class="form-control" id="newMediaId" readonly>
                     </div>
 
-                    <ul id="searches"></ul>
+                    <ul id="searches" class="p-0"></ul>
 
                     <button type="submit" class="btn btn-primary" id="addMedia">Submit</button>
                 </div>
@@ -54,8 +50,8 @@
         </div>
     </main>
 
-    <footer>
-        <div class="container">
+    <footer class="w-100">
+        <div class="container p-2">
             <p class="text-center">Made using <a href="https://giphy.com/">GIPHY</a> and <a href="http://www.omdbapi.com/">The Open Movie Database</a></p>
         </div>
     </footer>
