@@ -105,7 +105,7 @@ $(document).ready(function() {
             let results = query.data;
 
             for (let i = 0; i < results.length; i++) {
-                var gifDiv = $("<div>").addClass("gif m-1");
+                var gifDiv = $("<div>").addClass("gif float-left m-1");
 
                 var title = $("<strong>").text(results[i].title);
                 title = $("<p>").append(title);
