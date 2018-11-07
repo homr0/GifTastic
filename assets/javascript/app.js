@@ -3,31 +3,26 @@ $(document).ready(function() {
     var topics =[
         {
             name: "Deadpool",
-            type: "movie",
             imdb: "tt1431045"
         },
 
         {
             name: "The Flash",
-            type: "series",
             imdb: "tt3107288"
         },
 
         {
             name: "Game of Thrones",
-            type: "series",
             imdb: "tt0944947"
         },
 
         {
             name: "Dark Souls",
-            type: "game",
             imdb: "tt2015348"
         },
 
         {
             name: "Persona 4 Golden",
-            type: "game",
             imdb: "tt3003738"
         }
     ];
