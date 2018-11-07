@@ -111,13 +111,16 @@ $(document).ready(function() {
         // Stops default event from happening.
         e.preventDefault();
 
+        alert("https://www.omdbapi.com/?i=" + $("#newMediaId").val() + "&apikey=trilogy");
+
         // Checks if the new topic exists in OMDb
         $.ajax({
-            url: "https://www.omdbapi.com/?t=" + $("#newMedia").val() + "&apikey=trilogy",
+            url: "https://www.omdbapi.com/?i=" + $("#newMediaId").val() + "&apikey=trilogy",
             method: "GET"
         }).then(function(query) {
             // If it exists and isn't already in the array, then add its title and IMDB id to the array
-            if(query.Response == "True" && ($("[data-imdb=" + query.imdbID + "]").length < 1)) {
+            // There is another data-imdb (the form input)
+            if(query.Response == "True" && ($("[data-imdb=" + query.imdbID + "]").length == 1)) {
                 topics.push({
                     name: query.Title,
                     imdb: query.imdbID
