@@ -22,10 +22,13 @@ $(document).ready(function() {
         },
 
         {
-            name: "Persona 4 Golden",
-            imdb: "tt3003738"
+            name: "Persona 5",
+            imdb: "tt3944082"
         }
     ];
+
+    // Offset for loading more gifs
+    var offset = 0;
 
     // Renders buttons from the topics
     function renderButtons() {
@@ -49,12 +52,25 @@ $(document).ready(function() {
     $("#topics").on("click", ".topic", function(e) {
         e.preventDefault();
 
-        // Clears all current gifs
-        $("#gifs").empty();
+        // When a new topic is selected, then gif area is reloaded
+        if(!($(this).hasClass("selected"))) {
+            // Clears all current gifs
+            $("#gifs").empty();
 
-        // Gets the name of the topic for loading GIFs
+            // Resets offset to 0
+            offset = 0;
+
+            // Sets this topic to the selected topic
+            $(".selected").removeClass("selected");
+            $(this).addClass("selected");
+        } else {
+            // Adds to the offset
+            offset++;
+        }
+
+        // Renders gifs for the selected topic
         $.ajax({
-            url: "https://api.giphy.com/v1/gifs/search?api_key=kOK7MtUujqtZsU1oxZYEjJDrX9ToVw2O&q=" + $(this).text() + "&limit=10",
+            url: "https://api.giphy.com/v1/gifs/search?api_key=kOK7MtUujqtZsU1oxZYEjJDrX9ToVw2O&q=" + $(".selected").text() + "&limit=10&offset=" + (offset * 10),
             method: "GET"
         }).then(function(query) {
             // Loads the gifs from the response.
@@ -75,7 +91,7 @@ $(document).ready(function() {
 
                 gifDiv.append(gifImage, rating);
 
-                $("#gifs").append(gifDiv);
+                $("#gifs").prepend(gifDiv);
             }
         });
     });
@@ -106,16 +122,14 @@ $(document).ready(function() {
         // Stops default event from happening.
         e.preventDefault();
 
-        alert("https://www.omdbapi.com/?i=" + $("#newMediaId").val() + "&apikey=trilogy");
-
         // Checks if the new topic exists in OMDb
+        let imdbId = $("#newMediaId").val();
         $.ajax({
-            url: "https://www.omdbapi.com/?i=" + $("#newMediaId").val() + "&apikey=trilogy",
+            url: "https://www.omdbapi.com/?i=" + imdbId + "&apikey=trilogy",
             method: "GET"
         }).then(function(query) {
             // If it exists and isn't already in the array, then add its title and IMDB id to the array
-            // There is another data-imdb (the form input)
-            if(query.Response == "True" && ($("[data-imdb=" + query.imdbID + "]").length == 1)) {
+            if(query.Response == "True" && ($("#topics [data-imdb=" + imdbId + "]").length < 1)) {
                 topics.push({
                     name: query.Title,
                     imdb: query.imdbID
