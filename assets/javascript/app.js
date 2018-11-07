@@ -105,7 +105,10 @@ $(document).ready(function() {
             let results = query.data;
 
             for (let i = 0; i < results.length; i++) {
-                var gifDiv = $("<div>").addClass("gif float-left m-1");
+                var gifDiv = $("<div>").addClass("gif m-1");
+
+                var title = $("<strong>").text(results[i].title);
+                title = $("<p>").append(title);
 
                 var rating = $("<p>").text("Rating: " + results[i].rating);
 
@@ -117,7 +120,7 @@ $(document).ready(function() {
                     "alt": results[i].title
                 }).addClass("img-fluid");
 
-                gifDiv.append(gifImage, rating);
+                gifDiv.append(title, gifImage, rating);
 
                 $("#gifs").prepend(gifDiv);
             }
@@ -208,6 +211,19 @@ $(document).ready(function() {
         e.preventDefault();
 
         $("#newMediaId").val($(this).attr("data-imdb"));
+    });
+
+    // Shows/hides the disclaimer
+    $("#ymmv").on("click", function(e) {
+        e.preventDefault();
+
+        if($(this).attr("data-show") == "true") {
+            $("#disclaimer").hide();
+            $(this).attr("data-show", "false");
+        } else if($(this).attr("data-show") == "false") {
+            $("#disclaimer").show();
+            $(this).attr("data-show", "true");
+        }
     });
 
     // Renders initial list of buttons

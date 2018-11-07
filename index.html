@@ -20,7 +20,9 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <p>Get some fun GIFs from your favorite movies, TV shows, and games.*</p>
+                    <p>Get some fun GIFs from your favorite movies, TV shows, and games.<strong id="ymmv" data-show="false">*</strong></p>
+
+                    <p id="disclaimer"><strong>*</strong>While topic relevancy may vary for gifs, just keep clicking on the topic button until you find what you're looking for.</p>
                 </div>
             </div>
 
@@ -28,12 +30,12 @@
                 <div class="col-12 col-md-9">
                     <div id="topics"></div>
 
-                    <div id="mediaInfo"></div>
+                    <div id="mediaInfo" class="my-3"></div>
                 </div>
 
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-md-3 text-center">
                     <div class="form-group">
-                        <label class="text-center" for="newMedia"><strong>Have another movie, TV series, or video game you want to add?</strong></label>
+                        <label for="newMedia"><strong>Have another movie, TV series, or video game you want to add?</strong></label>
                         
                         <input type="text" class="form-control" id="newMedia">
                         
@@ -47,7 +49,7 @@
             </div>
             
             <div class="row">
-                <div class="col" id="gifs"></div>
+                <div class="col text-center" id="gifs"></div>
             </div>
         </div>
     </main>
