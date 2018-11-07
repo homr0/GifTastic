@@ -41,11 +41,42 @@ $(document).ready(function() {
             $("#topics").append(newTopic);
         });
     }
+
     // When a topic button is clicked, then 10 static non-animated gifs are loaded
+    $("#topics").on("click", ".topic", function(e) {
+        e.preventDefault();
+
+        // Gets the name of the topic for loading GIFs
+        $.ajax({
+            url: "https://api.giphy.com/v1/gifs/search?api_key=kOK7MtUujqtZsU1oxZYEjJDrX9ToVw2O&q=" + $(this).text() + "&limit=10",
+            method: "GET"
+        }).then(function(query) {
+            // Loads the gifs from the response.
+            let results = query.data;
+
+            for (let i = 0; i < results.length; i++) {
+                var gifDiv = $("<div>").addClass("gif float-left m-1");
+
+                var rating = $("<p>").text("Rating: " + results[i].rating);
+
+                var gifImage = $("<img>").attr({
+                    "src": results[i].images.fixed_height_still.url,
+                    "data-still": results[i].images.fixed_height_still.url,
+                    "data-animate": results[i].images.fixed_height.url,
+                    "data-state": "still",
+                    "alt": results[i].title
+                });
+
+                gifDiv.prepend(rating, gifImage);
+
+                $("#gifs").append(gifDiv);
+            }
+        });
+    });
 
     // When a gif is clicked, then the gif switches between pause and play
 
-    // Adds a new movie or show topic to the media topics array.
+    // Adds a new media topic to the media topics array.
     $("#addMedia").on("click", function(e) {
         // Stops default event from happening.
         e.preventDefault();
