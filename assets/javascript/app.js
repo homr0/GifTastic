@@ -162,32 +162,6 @@ $(document).ready(function() {
         }
     });
 
-    // Adds a new media topic to the media topics array.
-    $("#addMedia").on("click", function(e) {
-        // Stops default event from happening.
-        e.preventDefault();
-
-        // Checks if the new topic exists in OMDb
-        let imdbId = $("#newMediaId").val();
-        $.ajax({
-            url: "https://www.omdbapi.com/?i=" + imdbId + "&apikey=trilogy",
-            method: "GET"
-        }).then(function(query) {
-            // If it exists and isn't already in the array, then add its title and IMDB id to the array
-            if(query.Response == "True" && ($("#topics [data-imdb=" + imdbId + "]").length < 1)) {
-                topics.push({
-                    name: query.Title,
-                    imdb: query.imdbID
-                });
-
-                // Re-render the buttons
-                renderButtons();
-            } else {
-                alert("Could not find " + $("#newMedia").val() + ", or it is already a topic");
-            }
-        });
-    });
-
     // Renders a list of options from a search query
     $("#newMedia").on("keyup", function(e) {
         e.preventDefault();
@@ -222,15 +196,21 @@ $(document).ready(function() {
         });
     });
 
-    // When an option from the list is clicked, then the option's IMDB id is added to the id field
+    // When an option from the list is clicked, the the option is added to the array of topics
     $("#searches").on("click", "li", function(e) {
         e.preventDefault();
 
-        // Sets the fields
-        $("#newMedia").val($(this).attr("data-title"));
-        $("#newMediaId").val($(this).attr("data-imdb"));
+        topics.push({
+            name: $(this).attr("data-title"),
+            imdb: $(this).attr("data-imdb")
+        })
 
+        // Clears the fields
+        $("#newMedia, #newMediaId").val("");
         $("#searches").empty();
+
+        // Re-renders the buttons
+        renderButtons();
     });
 
     // Shows/hides the disclaimer
