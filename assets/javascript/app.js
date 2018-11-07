@@ -48,6 +48,20 @@ $(document).ready(function() {
         });
     }
 
+    // Checks if topic already exists
+    function topicExists(topic) {
+        let exists = false;
+        
+        $(topics).each(function(key, value) {
+            if(value.imdb == topic) {
+                exists = true;
+                return false;
+            }
+        });
+
+        return exists;
+    }
+
     // When a topic button is clicked, then 10 static non-animated gifs are loaded
     $("#topics").on("click", ".topic", function(e) {
         e.preventDefault();
@@ -69,7 +83,7 @@ $(document).ready(function() {
 
             // Loads the media info
             $.ajax({
-                url: "https://www.omdbapi.com/?i=" + $(".selected").attr("data-imdb") + "&plot=full&apikey=trilogy",
+                url: "https://www.omdbapi.com/?i=" + $(".selected").attr("data-imdb") + "&plot=short&apikey=trilogy",
                 method: "GET"
             }).then(function(query) {
                 // Loads the title, release date, and plot
@@ -188,20 +202,22 @@ $(document).ready(function() {
         }).then(function(query) {
             // Returns all search results
             let results = query.Search;
-            console.log(results);
 
             for(let i = 0; i < results.length; i++) {
-                // Gets the title
-                var listItem = $("<li>").html(results[i].Title + " ").attr({
-                    "data-title": results[i].Title,
-                    "data-imdb": results[i].imdbID
-                });
+                // If the topic doesn't already have a button, then add it to the list.
+                if(!(topicExists(results[i].imdbID))) {
+                    // Gets the title
+                    var listItem = $("<li>").html(results[i].Title + " ").attr({
+                        "data-title": results[i].Title,
+                        "data-imdb": results[i].imdbID
+                    });
 
-                // Gets the type of media and year
-                var info = $("<span>").text("(" + results[i].Type + " - " + results[i].Year + ")");
+                    // Gets the type of media and year
+                    var info = $("<span>").text("(" + results[i].Type + " - " + results[i].Year + ")");
 
-                $(listItem).append(info);
-                $("#searches").append(listItem);
+                    $(listItem).append(info);
+                    $("#searches").append(listItem);
+                }
             }
         });
     });
@@ -210,7 +226,11 @@ $(document).ready(function() {
     $("#searches").on("click", "li", function(e) {
         e.preventDefault();
 
+        // Sets the fields
+        $("#newMedia").val($(this).attr("data-title"));
         $("#newMediaId").val($(this).attr("data-imdb"));
+
+        $("#searches").empty();
     });
 
     // Shows/hides the disclaimer
