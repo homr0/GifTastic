@@ -82,7 +82,7 @@ $(document).ready(function() {
             $(this).addClass("selected");
 
             // Clears the media info
-            $("#mediaInfo").empty();
+            $("#mediaInfo, #mediaPoster").empty();
 
             // Loads the media info
             $.ajax({
@@ -103,7 +103,7 @@ $(document).ready(function() {
                         "alt": query.Title
                     }).addClass("img-fluid");
 
-                    $("#mediaPoster").html(poster);
+                    $("#mediaPoster").append(poster);
                 }
 
                 $("#mediaInfo").append(title, released, plot);
