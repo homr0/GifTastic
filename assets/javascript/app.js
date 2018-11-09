@@ -30,6 +30,9 @@ $(document).ready(function() {
     // Offset for loading more gifs
     var offset = 0;
 
+    // Saves the links of the user's favorite gifs
+    var favorites = [];
+
     // Renders buttons from the topics
     function renderButtons() {
         // Clears all of the current buttons to prevent repeat buttons
@@ -119,22 +122,33 @@ $(document).ready(function() {
             let results = query.data;
 
             for (let i = 0; i < results.length; i++) {
+                let gifTitle = results[i].title;
+                let gifStill = results[i].images.fixed_height_still.url;
+                let gifAnimate = results[i].images.fixed_height.url;
+
                 var gifDiv = $("<div>").addClass("gif float-left m-1");
 
-                var title = $("<strong>").text(results[i].title);
+                var title = $("<strong>").text(gifTitle);
                 title = $("<p>").append(title);
 
                 var rating = $("<p>").text("Rating: " + results[i].rating);
 
                 var gifImage = $("<img>").attr({
-                    "src": results[i].images.fixed_height_still.url,
-                    "data-still": results[i].images.fixed_height_still.url,
-                    "data-animate": results[i].images.fixed_height.url,
+                    "src": gifStill,
+                    "data-still": gifStill,
+                    "data-animate": gifAnimate,
                     "data-state": "still",
-                    "alt": results[i].title
+                    "alt": gifTitle
                 }).addClass("img-fluid");
+                
+                var heart = $("<i>").addClass("fa-heart");
+                if(favorites.indexOf(gifAnimate) < 0) {
+                    $(heart).addClass("far");
+                } else {
+                    $(heart).addClass("fas");
+                }
 
-                gifDiv.append(title, gifImage, rating);
+                gifDiv.append(title, gifImage, rating, heart);
 
                 $("#gifs").prepend(gifDiv);
             }

@@ -7,6 +7,9 @@
     
     <link rel="stylesheet" href="assets/css/normalize.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -30,7 +33,7 @@
 
                     <p class="text-left" id="disclaimer"><strong>*</strong>While topic relevancy may vary for gifs, just keep clicking on the topic button until you find what you're looking for.</p>
 
-                    <div class="form-group">
+                    <div class="form-group mb-0">
                         <label for="newMedia"><strong>Have another movie, TV series, or video game you want to add?</strong></label>
                         
                         <input type="text" class="form-control" id="newMedia">
@@ -43,7 +46,11 @@
             </div>
             
             <div class="row">
-                <div class="col text-center" id="gifs"></div>
+                <div class="col text-center" id="gifs">
+                    <div id="gifs"></div>
+                    
+                    <div id="favorites"></div>
+                </div>
             </div>
         </div>
     </main>

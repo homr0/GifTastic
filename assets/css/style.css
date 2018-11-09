@@ -6,11 +6,25 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Pattaya', sans-serif;
+    font-family: 'Athiti', sans-serif;
 }
 
 header, footer {
     background-color: rgba(255, 191, 0, 0.75);
+}
+
+header h1 {
+    font-family: 'Pattaya', Arial, Helvetica, sans-serif;
+}
+
+.topic {
+    color: rgba(128, 128, 128, 0.85);
+    background-color: rgb(255, 255, 0, 0.5);
+}
+
+.topic.selected, .topic:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 127, 0, 0.25);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 main {
@@ -21,14 +35,21 @@ main .container {
     background-color: rgba(225, 225, 225, 0.9)
 }
 
+#mediaInfo h2 {
+    font-weight: 700;
+}
+
 #disclaimer, #newMediaId {
     display: none;
 }
 
 #searches {
-    background-color: rgba(255, 191, 0, 0.75);
+    background-color: rgba(255, 191, 0, 0.5);
     max-height: 10rem;
-    overflow-y: scroll;
+    border-radius: 0.5rem;
+    overflow-y: auto;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
 }
 
 footer {
