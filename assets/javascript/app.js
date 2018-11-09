@@ -149,9 +149,7 @@ $(document).ready(function() {
                     $("#mediaPoster").append(poster);
                 }
 
-                var removeTopic = $("<button>").addClass("btn bg-warning")
-                .text("Remove Topic")
-                .attr("id", "removeTopic");
+                var removeTopic = $("<button>").addClass("btn").text("Remove Topic").attr("id", "removeTopic");
 
                 $("#mediaInfo").append(title, released, plot, removeTopic);
             });

@@ -13,18 +13,22 @@ header, footer {
     background-color: rgba(255, 191, 0, 0.75);
 }
 
+header {
+    min-height: 7.4rem;
+}
+
 header h1 {
     font-family: 'Pattaya', Arial, Helvetica, sans-serif;
 }
 
 .topic {
     color: rgba(63, 63, 63, 0.85);
-    background-color: rgb(255, 255, 0, 0.5);
+    background-color: rgba(255, 255, 0, 0.5);
 }
 
 .topic.selected, .topic:hover, .topic:focus {
     box-shadow: 0 0 0 0.2rem rgba(255, 127, 0, 0.25);
-    background-color: rgb(255, 255, 0, 0.75);
+    background-color: rgba(255, 255, 0, 0.75);
 }
 
 main {
@@ -39,18 +43,34 @@ main .container {
     font-weight: 700;
 }
 
+#removeTopic {
+    background-color: rgba(225, 63, 63, 0.7);
+}
+
+#removeTopic:hover, #removeTopic:focus {
+    box-shadow: 0 0 0 0.2rem rgba(225, 31, 31, 0.25);
+    background-color: rgba(225, 63, 63, 0.9);
+
+}
+
 .gif .fa-heart {
     top: 50%;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 63, 127, 0.9);
 }
 
 .gif .fa-heart.fas {
-    color: rgba(255, 191, 0, 0.5);
+    color: rgba(255, 63, 127, 0.8);
 }
 
 #favorite {
-    background-color: rgba(63, 63, 255, 0.5);
+    background-color: rgba(31, 127, 255, 0.9);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+#favorite.selected, #favorite:hover, #favorite:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 63, 191, 0.25);
+    background-color: rgba(31, 63, 225, 0.75);
 }
 
 #disclaimer {
