@@ -31,7 +31,7 @@ $(document).ready(function() {
     var offset = 0;
 
     // Saves the links of the user's favorite gifs
-    var favorites = JSON.parse(localStorage.getItem("favorites"));
+    var favorites = [];
 
     // Renders buttons from the topics
     function renderButtons() {
@@ -149,7 +149,11 @@ $(document).ready(function() {
                     $("#mediaPoster").append(poster);
                 }
 
-                $("#mediaInfo").append(title, released, plot);
+                var removeTopic = $("<button>").addClass("btn bg-warning")
+                .text("Remove Topic")
+                .attr("id", "removeTopic");
+
+                $("#mediaInfo").append(title, released, plot, removeTopic);
             });
         } else {
             // Adds to the offset
@@ -237,7 +241,10 @@ $(document).ready(function() {
         topics.push({
             name: $(this).attr("data-title"),
             imdb: $(this).attr("data-imdb")
-        })
+        });
+
+        // Saves to localStorage
+        localStorage.setItem("topics", JSON.stringify(topics));
 
         // Clears the fields
         $("#newMedia, #newMediaId").val("");
@@ -248,6 +255,29 @@ $(document).ready(function() {
 
         // Clicks on the newly created topic button
         $("[data-imdb=" + $(this).attr("data-imdb") + "]").trigger("click");
+    });
+
+    // Removes a topic from the list
+    $("#mediaInfo").on("click", "#removeTopic", function(e) {
+        // Gets the currently selected IMDB
+        let imdb = $(".selected").attr("data-imdb");
+
+        for(let i = 0; i < topics.length; i++) {
+            if(topics[i].imdb == imdb) {
+                // Remove topic from list
+                topics.splice(i, 1);
+                
+                // Saves to localStorage
+                localStorage.setItem("topics", JSON.stringify(topics));
+
+                // Removes the selected item and clears the media info
+                $(".selected").removeClass("selected");
+                $("#mediaInfo, #mediaPoster, #gifs").empty();
+
+                // Re-render buttons
+                renderButtons();
+            }
+        }
     });
 
     // Shows/hides the disclaimer
@@ -313,15 +343,6 @@ $(document).ready(function() {
         }
     });
 
-    // When mouse is over the favorite button, then it will show the opposite state.
-    // $("#gifs").on("mouseenter mouseleave", ".fa-heart", function() {
-    //     if($(this).hasClass("far")) {
-    //         $(this).removeClass("far").addClass("fas");
-    //     } else if($(this).hasClass("fas")) {
-    //         $(this).removeClass("fas").addClass("far");
-    //     }
-    // });
-
     // When the Favorite Gifs button is clicked, show only the favorite gifs
     $("#favorite").on("click", function(e) {
         e.preventDefault();
@@ -343,13 +364,19 @@ $(document).ready(function() {
 
         // Goes through all of the favorites and renders them
         for(let i = 0; i < list.length; i++) {
-            let title = list[i].title;
-            let still = list[i].still;
-            let animate = list[i].animate;
-            let rating = list[i].rating;
-            renderGif(title, still, animate, rating);
+            let gif = list[i];
+            renderGif(gif.title, gif.still, gif.animate, gif.rating);
         }
     });
+
+    // Sets up previously stored localStorage of topics and favorites
+    if(JSON.parse(localStorage.getItem("favorites")) !== null) {
+        favorites = JSON.parse(localStorage.getItem("favorites"));
+    }
+
+    if(JSON.parse(localStorage.getItem("topics")) !== null) {
+        topics = JSON.parse(localStorage.getItem("topics"));
+    }
 
     // Renders initial list of buttons
     renderButtons();
