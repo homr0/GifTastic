@@ -65,6 +65,49 @@ $(document).ready(function() {
         return exists;
     }
 
+    // Checks if the gif exists as a favorite
+    function favoriteExists(animatedGif) {
+        let exists = false;
+
+        $(favorite).each(function(key, value) {
+            if(value.animated == animatedGif) {
+                exists = true;
+                return false;
+            }
+        });
+
+        return exists;
+    }
+
+    // Renders gifs into a spot
+    function renderGif(gifTitle, gifStill, gifAnimate, gifRating) {
+        var gifDiv = $("<div>").addClass("gif float-left m-1 position-relative");
+
+        var title = $("<strong>").text(gifTitle);
+        title = $("<p>").append(title);
+
+        var rating = $("<p>").text("Rating: " + gifRating);
+
+        var gifImage = $("<img>").attr({
+            "src": gifStill,
+            "data-still": gifStill,
+            "data-animate": gifAnimate,
+            "data-state": "still",
+            "alt": gifTitle
+        }).addClass("img-fluid");
+        
+        var heart = $("<i>").addClass("fa-heart position-absolute");
+        if(favorites.indexOf(gifAnimate) < 0) {
+            $(heart).addClass("far");
+        } else {
+            $(heart).addClass("fas");
+        }
+
+        gifDiv.append(title, gifImage, rating, heart);
+
+        $("#gifs").prepend(gifDiv);
+    }
+
     // When a topic button is clicked, then 10 static non-animated gifs are loaded
     $("#topics").on("click", ".topic", function(e) {
         e.preventDefault();
@@ -125,32 +168,9 @@ $(document).ready(function() {
                 let gifTitle = results[i].title;
                 let gifStill = results[i].images.fixed_height_still.url;
                 let gifAnimate = results[i].images.fixed_height.url;
+                let gifRating = results[i].rating;
 
-                var gifDiv = $("<div>").addClass("gif float-left m-1 position-relative");
-
-                var title = $("<strong>").text(gifTitle);
-                title = $("<p>").append(title);
-
-                var rating = $("<p>").text("Rating: " + results[i].rating);
-
-                var gifImage = $("<img>").attr({
-                    "src": gifStill,
-                    "data-still": gifStill,
-                    "data-animate": gifAnimate,
-                    "data-state": "still",
-                    "alt": gifTitle
-                }).addClass("img-fluid");
-                
-                var heart = $("<i>").addClass("fa-heart position-absolute");
-                if(favorites.indexOf(gifAnimate) < 0) {
-                    $(heart).addClass("far");
-                } else {
-                    $(heart).addClass("fas");
-                }
-
-                gifDiv.append(title, gifImage, rating, heart);
-
-                $("#gifs").prepend(gifDiv);
+                renderGif(gifTitle, gifStill, gifAnimate, gifRating);
             }
         });
     });
@@ -240,6 +260,64 @@ $(document).ready(function() {
         } else if($(this).attr("data-show") == "false") {
             $("#disclaimer").show();
             $(this).attr("data-show", "true");
+        }
+    });
+
+    // Adds a favorite to the list of favorite gifs
+    $("#gifs").on("click", ".fa-heart.far", function(e) {
+        e.preventDefault();
+
+        // Changes the state of the favorite
+        $(this).removeClass("far").addClass("fas");
+
+        // Gets the parent's information
+        var gif = $(this).parent().children("img");
+
+        // Gets the rating
+        var rating = $(this).parent().children("p").last().text().substring(8);
+
+        favorites.push({
+            title: $(gif).attr("alt"),
+            still: $(gif).attr("data-still"),
+            animate: $(gif).attr("data-animate"),
+            rating: rating
+        });
+
+        // Saves to localStorage
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+    });
+
+    // When mouse is over the favorite button, then it will show the opposite state.
+    // $("#gifs").on("mouseenter mouseleave", ".fa-heart", function() {
+    //     if($(this).hasClass("far")) {
+    //         $(this).removeClass("far").addClass("fas");
+    //     } else if($(this).hasClass("fas")) {
+    //         $(this).removeClass("fas").addClass("far");
+    //     }
+    // });
+
+    // When the Favorite Gifs button is clicked, show only the favorite gifs
+    $("#favorite").on("click", function(e) {
+        e.preventDefault();
+
+        // Empties the gif area as well as the media info
+        $("#gifs, #mediaPoster, #mediaInfo").empty();
+
+        var heading = $("<h2>").text("Your Favorite Gifs");
+
+        var text = $("<p>").text("Check out your favorited Gifs here!");
+
+        $("#mediaInfo").append(heading, text);
+
+        let list = JSON.parse(localStorage.getItem("favorites"));
+
+        // Goes through all of the favorites and renders them
+        for(let i = 0; i < list.length; i++) {
+            let title = list[i].title;
+            let still = list[i].still;
+            let animate = list[i].animate;
+            let rating = list[i].rating;
+            renderGif(title, still, animate, rating);
         }
     });
 
