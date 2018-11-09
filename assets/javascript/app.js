@@ -101,9 +101,9 @@ $(document).ready(function() {
                     var poster = $("<img>").attr({
                         "src": query.Poster,
                         "alt": query.Title
-                    }).addClass("img-fluid float-left mr-3");
+                    }).addClass("img-fluid");
 
-                    $("#mediaInfo").append(poster);
+                    $("#mediaPoster").html(poster);
                 }
 
                 $("#mediaInfo").append(title, released, plot);
@@ -225,6 +225,9 @@ $(document).ready(function() {
 
         // Re-renders the buttons
         renderButtons();
+
+        // Clicks on the newly created topic button
+        $("[data-imdb=" + $(this).attr("data-imdb") + "]").trigger("click");
     });
 
     // Shows/hides the disclaimer
