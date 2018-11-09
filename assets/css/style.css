@@ -3,6 +3,9 @@
 body {
     color: rgba(31, 31, 31, 0.9);
     font-family: 'Roboto', Arial, Helvetica, sans-serif; 
+    background-color: rgba(31, 31, 31, 0.9);
+    background-image: url('../images/curtain.jpg');
+    background-size: cover;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -10,7 +13,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 header, footer {
-    background-color: rgba(255, 191, 0, 0.75);
+    background-color: rgba(255, 191, 0, 1);
 }
 
 header {
