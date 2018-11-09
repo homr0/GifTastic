@@ -31,7 +31,7 @@ $(document).ready(function() {
     var offset = 0;
 
     // Saves the links of the user's favorite gifs
-    var favorites = [];
+    var favorites = JSON.parse(localStorage.getItem("favorites"));
 
     // Renders buttons from the topics
     function renderButtons() {
@@ -69,8 +69,8 @@ $(document).ready(function() {
     function favoriteExists(animatedGif) {
         let exists = false;
 
-        $(favorite).each(function(key, value) {
-            if(value.animated == animatedGif) {
+        $(JSON.parse(localStorage.getItem("favorites"))).each(function(key, value) {
+            if(value.animate == animatedGif) {
                 exists = true;
                 return false;
             }
@@ -97,10 +97,10 @@ $(document).ready(function() {
         }).addClass("img-fluid");
         
         var heart = $("<i>").addClass("fa-heart position-absolute");
-        if(favorites.indexOf(gifAnimate) < 0) {
-            $(heart).addClass("far");
-        } else {
+        if(favoriteExists(gifAnimate)) {
             $(heart).addClass("fas");
+        } else {
+            $(heart).addClass("far");
         }
 
         gifDiv.append(title, gifImage, rating, heart);
@@ -287,6 +287,32 @@ $(document).ready(function() {
         localStorage.setItem("favorites", JSON.stringify(favorites));
     });
 
+    // Removes a gif from the list of favorite gifs
+    $("#gifs").on("click", ".fa-heart.fas", function(e) {
+        e.preventDefault();
+
+        // Changes the state of the unfavorited gif
+        $(this).removeClass("fas").addClass("far");
+
+        // Removes the gif from the favorites list
+        let animatedGif = $(this).parent().children("img").attr("data-animate");
+        for(let i = 0; i < favorites.length; i++) {
+            // Once the gif is found, remove it from the array
+            if(favorites[i].animate == animatedGif) {
+                favorites.splice(i, 1);
+
+                // Saves to localStorage
+                localStorage.setItem("favorites", JSON.stringify(favorites));
+
+                // If this is the favorite gifs section, then re-render all gifs
+                if($("#mediaInfo h2").attr("id") == "favoriteGifs") {
+                    $("#favorite").trigger("click");
+                }
+                return false;
+            }
+        }
+    });
+
     // When mouse is over the favorite button, then it will show the opposite state.
     // $("#gifs").on("mouseenter mouseleave", ".fa-heart", function() {
     //     if($(this).hasClass("far")) {
@@ -300,10 +326,14 @@ $(document).ready(function() {
     $("#favorite").on("click", function(e) {
         e.preventDefault();
 
+        // Selects this button
+        $(".selected").removeClass("selected");
+        $(this).addClass("selected");
+
         // Empties the gif area as well as the media info
         $("#gifs, #mediaPoster, #mediaInfo").empty();
 
-        var heading = $("<h2>").text("Your Favorite Gifs");
+        var heading = $("<h2>").text("Your Favorite Gifs").attr("id", "favoriteGifs");
 
         var text = $("<p>").text("Check out your favorited Gifs here!");
 
