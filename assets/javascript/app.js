@@ -129,7 +129,7 @@ $(document).ready(function() {
 
             // Loads the media info
             $.ajax({
-                url: "https://www.omdbapi.com/?i=" + $(".selected").attr("data-imdb") + "&plot=short&apikey=trilogy",
+                url: "https://www.omdbapi.com/?i=" + $(".selected").attr("data-imdb") + "&plot=short&apikey=59c7faa2",
                 method: "GET"
             }).then(function(query) {
                 // Loads the title, release date, and plot
@@ -209,7 +209,7 @@ $(document).ready(function() {
 
         // Returns a search list of topics
         $.ajax({
-            url: "https://www.omdbapi.com/?s=" + $("#newMedia").val() + "&apikey=trilogy",
+            url: "https://www.omdbapi.com/?s=" + $("#newMedia").val() + "&apikey=59c7faa2",
             method: "GET"
         }).then(function(query) {
             // Returns all search results
