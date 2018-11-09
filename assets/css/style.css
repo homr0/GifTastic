@@ -18,7 +18,7 @@ header h1 {
 }
 
 .topic {
-    color: rgba(128, 128, 128, 0.85);
+    color: rgba(63, 63, 63, 0.85);
     background-color: rgb(255, 255, 0, 0.5);
 }
 
@@ -39,7 +39,17 @@ main .container {
     font-weight: 700;
 }
 
-#disclaimer, #newMediaId {
+.gif .fa-heart {
+    top: 50%;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.gif .fa-heart.fas {
+    color: rgba(255, 191, 0, 0.5);
+}
+
+#disclaimer {
     display: none;
 }
 
@@ -48,7 +58,6 @@ main .container {
     max-height: 10rem;
     border-radius: 0.5rem;
     overflow-y: auto;
-    color: rgba(255, 255, 255, 0.9);
     cursor: pointer;
 }
 

@@ -126,7 +126,7 @@ $(document).ready(function() {
                 let gifStill = results[i].images.fixed_height_still.url;
                 let gifAnimate = results[i].images.fixed_height.url;
 
-                var gifDiv = $("<div>").addClass("gif float-left m-1");
+                var gifDiv = $("<div>").addClass("gif float-left m-1 position-relative");
 
                 var title = $("<strong>").text(gifTitle);
                 title = $("<p>").append(title);
@@ -141,7 +141,7 @@ $(document).ready(function() {
                     "alt": gifTitle
                 }).addClass("img-fluid");
                 
-                var heart = $("<i>").addClass("fa-heart");
+                var heart = $("<i>").addClass("fa-heart position-absolute");
                 if(favorites.indexOf(gifAnimate) < 0) {
                     $(heart).addClass("far");
                 } else {
