@@ -12,3 +12,9 @@ Using the GIPHY API, this dynamic web page is populated with gifs of your choice
 6. If you like a gif, you can favorite it by clicking the *heart* in the center.
 7. All of the gifs that you have favorited are accessible when you click **Favorite Gifs**.
 8. To remove a gif form your **Favorite Gifs** , just click on the *heart* again.
+
+### Caveats
+
+- Please note that gif relevancy to topic may vary.
+- If the topic already has a button, then it will not show up in the dropdown menu.
+- Only topics with IMDb ID will show up in the dropdown menu.
