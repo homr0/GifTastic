@@ -39,7 +39,7 @@ main {
 }
 
 main .container {
-    background-color: rgba(225, 225, 225, 0.9)
+    background-color: rgba(225, 225, 225, 0.75);
 }
 
 #mediaInfo h2 {
@@ -81,7 +81,7 @@ main .container {
 }
 
 #searches {
-    background-color: rgba(255, 191, 0, 0.5);
+    background-color: rgba(255, 191, 0, 0.6);
     max-height: 10rem;
     border-radius: 0.5rem;
     overflow-y: auto;
